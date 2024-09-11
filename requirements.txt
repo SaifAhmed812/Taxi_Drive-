@@ -13,3 +13,4 @@ notebook
 matplotlib
 GitPython
 category-encoders
+pathlib 
