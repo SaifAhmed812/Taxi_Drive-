@@ -5,7 +5,8 @@ import joblib
 from datetime import datetime, timedelta
 
 # Load preprocessor and model
-preprocessor = joblib.load('preprocessor.pkl')
+url3 = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/31bd35217e7316fdd7ba971f7a2570228114eeab/preprocessor.pkl"
+preprocessor = joblib.load(url3)
 model = pickle.load(open("model_RD", "rb"))
 
 # Load your dataframes
