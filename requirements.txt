@@ -14,4 +14,3 @@ matplotlib
 GitPython
 category-encoders
 pathlib 
-pandas
