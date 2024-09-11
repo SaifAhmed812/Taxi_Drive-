@@ -6,9 +6,23 @@ from datetime import datetime, timedelta
 from io import BytesIO
 import requests
 
-preprocessor = joblib.load('preprocessor.pkl')
-model = pickle.load(open("model_RD", "rb"))
+def load_pickle_from_url(url, loader):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Check for request errors
+        with BytesIO(response.content) as file_stream:
+            return loader(file_stream)
+    except Exception as e:
+        st.error(f"Error loading pickle file from {url}: {e}")
+        return None
 
+# URLs for the pickle files
+url_preprocessor = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/31bd35217e7316fdd7ba971f7a2570228114eeab/preprocessor.pkl"
+url_model = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/f188a2c8712d35ac0e60d55ee3ec53c1b3279336/model_RD.pkl"
+
+# Load the preprocessor and model
+preprocessor = load_pickle_from_url(url_preprocessor, joblib.load)
+model = load_pickle_from_url(url_model, pickle.load)
 
 # Load your dataframes
 url1 = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/8eae5a633f1daf373cbbcb61548f8dfae5592ea7/Data/_Cleaned_locations.csv"
