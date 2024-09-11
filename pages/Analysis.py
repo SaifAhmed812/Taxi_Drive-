@@ -6,7 +6,7 @@ import pandas as pd
 import plotly.express as px
 
 
-df = pd.read_csv("E:\Epsilon_ai\Final_Project\Data_readyy_to_streamlit_downsampled")
+df = pd.read_csv("Data\Data_ready_for_streamlit_deploy")
 
 df['pickup_date'] = pd.to_datetime(df['pickup_date'])
 df['pickup_time'] = pd.to_timedelta(df['pickup_time'])
@@ -14,12 +14,6 @@ df['pickup_time'] = pd.to_timedelta(df['pickup_time'])
 df['dropoff_date'] = pd.to_datetime(df['dropoff_date'])
 df['dropoff_time'] = pd.to_timedelta(df['dropoff_time'])
 
-df2 = df.sample(frac=0.1, random_state=42)  # Sampling 10% of the data
-df2['pickup_date'] = pd.to_datetime(df2['pickup_date'])
-df2['pickup_time'] = pd.to_timedelta(df2['pickup_time'])
-
-df2['dropoff_date'] = pd.to_datetime(df2['dropoff_date'])
-df2['dropoff_time'] = pd.to_timedelta(df2['dropoff_time'])
 
 st.markdown("<h1 style='text-align: center; color: white;'>Choose a category</h1>", unsafe_allow_html=True)
 value = st.selectbox("",["Univariant Analysis","Bivariant Analysis"])
@@ -30,7 +24,7 @@ if value == "Univariant Analysis":
     st.markdown("<h1 style='text-align: center; color: white;'>Average Distances of the travels</h1>", unsafe_allow_html=True)
     fig2,ax1 =  plt.subplots()
     plt.figure(figsize=(10, 6))
-    ax1.hist(df2.trip_distance, bins=50, edgecolor='black')
+    ax1.hist(df.trip_distance, bins=50, edgecolor='black')
     st.pyplot(fig2)
     
 
@@ -220,8 +214,7 @@ elif value == "Bivariant Analysis":
 
     # Plotting correlation between trip distance and fare amount
     st.markdown("<h1 style='text-align: center; color: white;'>Fare amount versus Trip distance </h1>", unsafe_allow_html=True)
-    fig, ax = plt.subplots()
-    plt.figure(figsize=(10, 6))
+    fig, ax =  plt.subplots(figsize=(18, 6))
     sns.scatterplot(x='trip_distance', y='fare_amount', data=df, ax =ax)
     plt.xlabel('Trip Distance (miles)')
     plt.ylabel('Fare Amount ($)')
@@ -237,8 +230,7 @@ elif value == "Bivariant Analysis":
 
     num_cols = df3.select_dtypes('float','int')
 #========================    
-    fig, ax = plt.subplots()
-    plt.figure(figsize=(12,6))
+    fig, ax = plt.subplots(figsize=(18, 6))
     sns.heatmap(num_cols.corr(), annot=True, fmt=".2f", cmap='coolwarm', linewidths=0.5 , ax= ax)
     st.pyplot(fig)
 

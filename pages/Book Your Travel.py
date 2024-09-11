@@ -6,16 +6,15 @@ from datetime import datetime, timedelta
 
 # Load preprocessor and model
 preprocessor = joblib.load('preprocessor.pkl')
-model = pickle.load(open("E:\Epsilon_ai\Final_Project\model_RD", "rb"))
+model = pickle.load(open("model_RD", "rb"))
 
 # Load your dataframes
-df = pd.read_csv("E:\Epsilon_ai\Final_Project\_Cleaned_Taxi_Datset.csv")
-dfx = pd.read_csv("E:\Epsilon_ai\Final_Project\_Cleaned_locations.csv")
-dfx2 = pd.read_csv("E:\Epsilon_ai\Final_Project\Locations and codes.csv")
+dfx = pd.read_csv("Data\_Cleaned_locations.csv")
+dfx2 = pd.read_csv("Data\Locations and codes.csv")
 
 # Get unique locations
 unique_pickup_locations = dfx['Column1'].unique().tolist()
-unique_dropoff_locations = dfx['Column2'].unique().tolist()
+#unique_dropoff_locations = dfx['Column2'].unique().tolist()
 
 st.title("Taxi Fare Prediction")
 
@@ -57,10 +56,19 @@ def get_trip_duration(current_hour, dropoff_hour):
 
     return hours, seconds
 
+def get_unique_dropoff_locations(dfx , pick_up_location) :
+    unique_dropoff_locations = dfx[dfx['Column1'] == pick_up_location]['Column2'].unique()
+
+    return unique_dropoff_locations
+
+
 with st.form(key="form1"):
     passenger_count = st.number_input("Passenger Count", 1, 5)
     Tip = st.number_input("Tip amount", min_value=0.0)
     pick_up_location = st.selectbox("Select Pick-Up Location", options=unique_pickup_locations)
+  
+    unique_dropoff_locations = get_unique_dropoff_locations(dfx,pick_up_location)#get drop off locations
+
     drop_of_location = st.selectbox("Select Drop-Off Location", options=unique_dropoff_locations)
     payment_type = st.selectbox("Payment Type", ["credit", "cash", "mobile", "prcard"])
 
@@ -90,7 +98,7 @@ with st.form(key="form1"):
                 'ratecodeid': 1,
                 'payment_type': code,
                 "extra": 1.7412 ,#mean
-                "mta_tax": 0.5,
+                "mta_tax": 0.5,#constant
                 "tip_amount": Tip,
                 'congestion_surcharge': 2.422, #mean
                 'pick_up_location': pick_location,
