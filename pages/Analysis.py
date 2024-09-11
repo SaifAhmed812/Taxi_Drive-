@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.express as px
 
-
-df = pd.read_csv("Data\Data_ready_for_streamlit_deploy")
+url = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/d3834553bfb06dea47594137a4b7f269848709e3/Data/Data_ready_for_streamlit_deploy"
+df = pd.read_csv(url)
 
 df['pickup_date'] = pd.to_datetime(df['pickup_date'])
 df['pickup_time'] = pd.to_timedelta(df['pickup_time'])
