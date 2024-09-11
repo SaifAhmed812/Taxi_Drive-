@@ -14,3 +14,5 @@ matplotlib
 GitPython
 category-encoders
 pathlib 
+io
+requestes
