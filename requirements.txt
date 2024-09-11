@@ -15,4 +15,4 @@ GitPython
 category-encoders
 pathlib 
 io
-requestes
+requests
