@@ -9,8 +9,10 @@ preprocessor = joblib.load('preprocessor.pkl')
 model = pickle.load(open("model_RD", "rb"))
 
 # Load your dataframes
-dfx = pd.read_csv("Data\_Cleaned_locations.csv")
-dfx2 = pd.read_csv("Data\Locations and codes.csv")
+url1 = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/8eae5a633f1daf373cbbcb61548f8dfae5592ea7/Data/_Cleaned_locations.csv"
+url2 = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/8eae5a633f1daf373cbbcb61548f8dfae5592ea7/Data/Locations%20and%20codes.csv"
+dfx = pd.read_csv(url1)
+dfx2 = pd.read_csv(url2)
 
 # Get unique locations
 unique_pickup_locations = dfx['Column1'].unique().tolist()
