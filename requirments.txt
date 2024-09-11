@@ -1,0 +1,12 @@
+streamlit
+seaborn
+plotly
+matplotlib
+pandas 
+numpy
+sklearn
+category_encoders
+time
+pickle
+datetime
+joblib
