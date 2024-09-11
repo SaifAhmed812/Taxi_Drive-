@@ -3,11 +3,27 @@ import pandas as pd
 import pickle
 import joblib
 from datetime import datetime, timedelta
+from io import BytesIO
+import requests
 
-# Load preprocessor and model
-url3 = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/31bd35217e7316fdd7ba971f7a2570228114eeab/preprocessor.pkl"
-preprocessor = joblib.load(url3)
-model = pickle.load(open("model_RD", "rb"))
+# URLs for the pickle files
+url_preprocessor = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/31bd35217e7316fdd7ba971f7a2570228114eeab/preprocessor.pkl"
+url_model = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/f188a2c8712d35ac0e60d55ee3ec53c1b3279336/model_RD"
+
+# Download the file from the URL
+response = requests.get(url3)
+response.raise_for_status()  # Check for request errors
+
+# Function to download a file from a URL and load it
+def load_pickle_from_url(url, loader):
+    response = requests.get(url)
+    response.raise_for_status()  # Check for request errors
+    return loader(BytesIO(response.content))
+
+# Load the preprocessor
+preprocessor = load_pickle_from_url(url_preprocessor, joblib.load)
+# Load the model
+model = load_pickle_from_url(url_model, pickle.load)
 
 # Load your dataframes
 url1 = "https://raw.githubusercontent.com/SaifAhmed812/Taxi_Drive-/8eae5a633f1daf373cbbcb61548f8dfae5592ea7/Data/_Cleaned_locations.csv"
