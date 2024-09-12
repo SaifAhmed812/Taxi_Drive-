@@ -26,6 +26,10 @@ if value == "Univariant Analysis":
     plt.figure(figsize=(10, 6))
     ax1.hist(df.trip_distance, bins=50, edgecolor='black')
     st.pyplot(fig2)
+    st.markdown("""
+                - It appears that most of the trips are in range of 0.5 and 2 miles 
+                - Number of trips decreases as the distance increase especially after 3 miles
+                 """)
     
 
     
@@ -41,7 +45,11 @@ if value == "Univariant Analysis":
     st.markdown("<h1 style='text-align: center; color: white;'>Tip_Amount based on the Payment of Customer</h1>", unsafe_allow_html=True)
     plt.figure(figsize=(10, 6))
     st.plotly_chart(px.histogram(df, x='tip_amount',color='payment_type',nbins = 15))
-
+    
+    st.markdown("""
+            - Cash is the most common payment method 
+            - If a customer pays in cash, he or she will tend to tip
+             """)
     
 
 #============================================================ Demand over the week
@@ -73,7 +81,10 @@ if value == "Univariant Analysis":
     st.pyplot(fig2)  
 
     
-    
+    st.markdown("""
+    - Over the week the no of trips increases in the holidays , wednesdays and thursday and tend to slightly decrease over the remaining days were saturdays are the least
+    - January month has the maximum no of travels
+        """)
     
     
     
@@ -205,7 +216,12 @@ if value == "Univariant Analysis":
 
 
     st.pyplot(plt)
-
+    
+    st.markdown("""
+    - Demand of the taxis vary according to the location where there are locations with nearly zero taxi trips
+    - inwood and lincoin square east has the largest fare amounts in regards of there taxi travels
+    - lenoxhillwest is the most common area in pickup and drop off locations 
+    """)
 
 elif value == "Bivariant Analysis":
     
@@ -322,5 +338,11 @@ elif value == "Bivariant Analysis":
 
     # Optionally, if you want to clear the plot after displaying:
     plt.clf()
+    
+    st.markdown("""
+    - It appears that there is a linear relation between fare amount and trip distance
+    - Trip_distance , ratecodeid,tip_amount and total amount have the highest influence over the fare amount while pickup and dropoff locations donot affect fare amount in a good measurable way
+    - it appears that the fare amount remains steady over the months then Significantly drops down after February
+    """)
 
 
